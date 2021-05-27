@@ -11,9 +11,15 @@
         Button,
     } from "sveltestrap";
 
+    let voices = [];
+    let rate = 1;
+    let pitch = 1;
+    let volume = 1;
+
     onMount(() => {
         speechSynthesis.onvoiceschanged = () => {
-            console.log(speechSynthesis.getVoices(), 'voices');
+            // console.log(speechSynthesis.getVoices(), 'voices');
+            voices = speechSynthesis.getVoices();
         }
     });
 </script>
