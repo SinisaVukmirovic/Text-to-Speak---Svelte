@@ -1,5 +1,6 @@
 <script>
-    import { onMount } from 'svelte';
+    import { } from 'os';
+import { onMount } from 'svelte';
 
     import {
         Col,
@@ -15,6 +16,8 @@
     let rate = 1;
     let pitch = 1;
     let volume = 1;
+    let text = '';
+    let selectedVoice;
 
     onMount(() => {
         speechSynthesis.onvoiceschanged = () => {
@@ -22,6 +25,13 @@
             voices = speechSynthesis.getVoices();
         }
     });
+
+    const printVoice = voice => {
+        if (!voice) {
+            return '';
+        } 
+        return `${voice.name} (${voice.lang})`;
+    }
 </script>
 
 <style>
@@ -29,3 +39,32 @@
 </style>
 
 <!-- markup (zero or more items) goes here -->
+<Container>
+    <Row>
+        <Col>
+            <h2>Speak To Me</h2>
+        </Col>
+    </Row>
+
+    <Row>
+        <Col>
+            <FormGroup>
+                <Label for="words">Say something..</Label>
+                <Input type="text" id="words" bind:value={text} />
+            </FormGroup>
+        </Col>
+    </Row>
+
+    <Row>
+        <Col>
+            <FormGroup>
+                <Label for="voices">Say something..</Label>
+                <Input type="select" id="voices" bind:value={selectedVoice}>
+                    {#each voices as voice}
+                        <option value={voice}>{printVoice(voice)}</option>
+                    {/each}
+                </Input>
+            </FormGroup>
+        </Col>
+    </Row>
+</Container>
