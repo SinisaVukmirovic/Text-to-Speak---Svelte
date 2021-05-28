@@ -67,4 +67,37 @@ import { onMount } from 'svelte';
             </FormGroup>
         </Col>
     </Row>
+
+    <Row>
+        <Col>
+            <FormGroup>
+                <Label for="pitch">Pitch</Label>
+                <Input type="range" id="pitch" bind:value={pitch}
+                min="0.1" max="2" step="0.1">
+                </Input>
+            </FormGroup>
+        </Col>
+    </Row>
+
+    <Row>
+        <Col>
+            <FormGroup>
+                <Label for="rate">Rate</Label>
+                <Input type="range" id="rate" bind:value={rate}
+                min="0.1" max="2" step="0.1">
+                </Input>
+            </FormGroup>
+        </Col>
+    </Row>
+
+    <Row>
+        <Col>
+            <FormGroup>
+                <Label for="volume">Volume</Label>
+                <Input type="range" id="rate" bind:value={volume}
+                min="0.1" max="1" step="0.1">
+                </Input>
+            </FormGroup>
+        </Col>
+    </Row>
 </Container>
