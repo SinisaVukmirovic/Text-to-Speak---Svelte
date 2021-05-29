@@ -16,14 +16,14 @@ import { onMount } from 'svelte';
     let rate = 1;
     let pitch = 1;
     let volume = 1;
-    let text = '';
+    let text = 'React is a terrible name for React.js';
     let selectedVoice;
 
     onMount(() => {
         speechSynthesis.onvoiceschanged = () => {
             // console.log(speechSynthesis.getVoices(), 'voices');
             voices = speechSynthesis.getVoices();
-            selectedVoice = voices[0];
+            selectedVoice = voices[1];  
         }
     });
 
@@ -35,14 +35,24 @@ import { onMount } from 'svelte';
     }
 
     const play = () => {
-        
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        speechSynthesis.cancel();
+
+        utterance.pitch = pitch;
+        utterance.rate = rate;
+        utterance.voice = selectedVoice;
+        utterance.volume = volume;
+
+        speechSynthesis.speak(utterance);
+
     }
 </script>
 
 <style>
     :global(body) {
         width: 90%;
-        max-width: 30rem;
+        max-width: 35rem;
         margin: 5rem auto;
     }
 </style>
@@ -120,7 +130,7 @@ import { onMount } from 'svelte';
 
     <Row>
         <Col>
-        
+            Pitch: <strong>{pitch}</strong> | Speed: <strong>{rate}</strong> | Volume: <strong>{volume}</strong> | Voice: <strong>{printVoice(selectedVoice)}</strong>
         </Col>
     </Row>
 </Container>
